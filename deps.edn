@@ -1,4 +1,4 @@
-{:paths ["resources" "src"]
+{:paths ["src"]
  :deps {org.clojure/clojure {:mvn/version "RELEASE"}
         com.rpl/specter {:mvn/version "1.1.2"}
         ring/ring-core {:mvn/version "1.7.1"}
@@ -17,4 +17,5 @@
                        cider/cider-nrepl {:mvn/version "0.21.1"}}
           :main-opts ["-m" "nrepl.cmdline"
                       "--middleware" "[cider.nrepl/cider-middleware]"
-                      "--port" "9000"]}}}
+                      "--port" "9000"]}
+  :dev-server {:main-opts ["-e" "((requiring-resolve,'dantheobserver.parrot-api.app/run-dev-server))"]}}}
