@@ -11,5 +11,4 @@
 (defn request-data
   [db {:keys [uri query-string] :as req}]
   (let [path (entry-path uri)]
-    (println path)
     (get-in @db path)))

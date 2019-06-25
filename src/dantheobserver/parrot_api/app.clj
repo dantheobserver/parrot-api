@@ -7,19 +7,20 @@
 
 (def db (atom {:api1 {"testing" {:hello "world"}}}))
 (def port 3030)
+(declare server)
 
 (defn handler [{:keys [uri] :as req}]
   (if (= "/favicon.ico" uri)
     {:status 404}
     (let [req-data (request/request-data db req)]
-      (println req-data)
       (response req-data))))
 
 (def app (-> handler
              wrap-json-response))
 
-(defn run-server []
-  (jetty/run-jetty app {:port port}))
-
 (defn run-dev-server []
-  (jetty/run-jetty (wrap-reload app) {:port port}))
+  (println "---Starting dev server---")
+  (jetty/run-jetty (wrap-reload app) {:port port :join? false}))
+
+(defn -main []
+  (jetty/run-jetty app {:port 3033})) 
