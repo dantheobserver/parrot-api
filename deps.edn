@@ -4,7 +4,7 @@
         ring/ring-core {:mvn/version "1.7.1"}
         ring/ring-jetty-adapter {:mvn/version "1.7.1"}
         ring/ring-json {:mvn/version "0.4.0"}
-        ring/ring-devel {:mvn/version "1.6.3"}}
+        org.clojure/spec.alpha {:mvn/version "0.2.176"}}
  :aliases
  {:test {:extra-paths ["test"]
          :extra-deps {org.clojure/test.check {:mvn/version "RELEASE"}}}
@@ -18,7 +18,9 @@
                        refactor-nrepl {:mvn/version "2.4.0"}}
           :main-opts ["-m" "nrepl.cmdline"
                       "--middleware" "[cider.nrepl/cider-middleware,refactor-nrepl.middleware/wrap-refactor]"
-                      "--port" "9000"]}
-  :dev {:extra-paths ["dev"]}
+                      "--port" "9009"]}
+  :dev {:extra-deps {ring/ring-devel {:mvn/version "1.6.3"}
+                     mvxcvi/puget {:mvn/version "1.1.2"}} 
+        :extra-paths ["dev"]}
   :server {:main-opts ["-m" "dantheobserver.parrot-api.app"]}}}
 

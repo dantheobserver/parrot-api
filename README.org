@@ -1,0 +1,19 @@
+* parrot-api
+
+Pass-through api that mimics and caches configured endpoint responses 
+
+** Setting up development Environment
+
+This project uses tools.deps, to run an nrepl on port 9000 call:
+
+~clojure -A:nrepl~
+
+Included is a dev alias that allows you to run a development jetty server that reloads the aplicaition on file changes.  The command is:
+
+~clojure -A:dev~
+
+This can work in conjunction with the nrepl by calling: 
+
+~clojure -A:dev:nrepl~
+
+When the nrepl is started it will run the usr.clj in the dev directory and expose ~(start)~ and ~(stop)~ wich will start and stop the dev server manually.
