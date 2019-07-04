@@ -3,7 +3,7 @@
             [ring.adapter.jetty :as jetty]
             [ring.middleware.json :refer [wrap-json-response]]
             [ring.util.response :refer [response]]
-            [dantheobserver.parrot-api.common :refer [with-args]]))
+            [dantheobserver.parrot-api.common :refer [fill]]))
 
 (def db (atom {:api1 {"testing" {:hello "world"}}}))
 (def config {:api1 "https://parrot-test.free.beeceptor.com"})
@@ -21,8 +21,6 @@
              wrap-json-response))
 
 (defn -main [& args]
-  (with-args args
-    [hostname "127.0.0.1"
-     port 3030]
+  (let [[hostname port] (fill ["127.0.0.1" 3030] args)]
     (println "Running server on host:" hostname " port:" port)
     (jetty/run-jetty app {:host hostname :port port})))

@@ -1,4 +1,4 @@
-{:paths ["src"]
+{:paths ["src/clj"]
  :deps {org.clojure/clojure {:mvn/version "RELEASE"}
         com.rpl/specter {:mvn/version "1.1.2"}
         ring/ring-core {:mvn/version "1.7.1"}
@@ -21,6 +21,8 @@
                       "--port" "9009"]}
   :dev {:extra-deps {ring/ring-devel {:mvn/version "1.6.3"}
                      mvxcvi/puget {:mvn/version "1.1.2"}} 
-        :extra-paths ["dev"]}
-  :server {:main-opts ["-m" "dantheobserver.parrot-api.app"]}}}
+        :extra-paths ["src/dev"]}
+  :server {:main-opts ["-m" "dantheobserver.parrot-api.app"]}
+  :migrations {:extra-paths ["src/migrations" "migratus"]
+               :extra-deps {migratus {:mvn/version "1.2.3"}}}}}
 

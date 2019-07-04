@@ -3,19 +3,10 @@
             [clojure.test :as t]))
 
 (t/deftest common
-  (t/testing "with-args"
-    (t/is (= :some-key (with-args [:some-key]
-                         [value :default]
-                         value)))
-    (t/is (= :default (with-args []
-                        [value :default]
-                        value)))
-    (t/is (= [:default-a :default-b]
-             (with-args []
-               [val-a :default-a
-                val-b :default-b]
-               [val-a val-b])))
-    (t/is (= [:default-a :b] (with-args [nil :b]
-                               [val-a :default-a
-                                val-b :default-b]
-                               [val-a val-b])))))
+  (t/testing "fill"
+    (t/is (= [:some-key] (fill [:default] [:some-key])))
+    (t/is (= [:default] (fill [:default] [])))
+    (t/is (= [:default-a :default-b] (fill [:default-a :default-b] [])))
+    (t/is (= [:default-a :b] (fill [:default-a :default-b] [nil :b])))
+    (t/is (= [:a :default-b] (fill [:default-a :default-b] [:a])))
+    (t/is (= [:a :b] (fill [:default-a :default-b] [:a :b])))))
