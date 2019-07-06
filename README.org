@@ -1,6 +1,6 @@
 * parrot-api
 
-Pass-through api that mimics and caches configured endpoint responses 
+Pass-through api that mimics and caches configured endpoint responses.
 
 ** Setting up development Environment
 
@@ -17,3 +17,16 @@ This can work in conjunction with the nrepl by calling:
 ~clojure -A:dev:nrepl~
 
 When the nrepl is started it will run the usr.clj in the dev directory and expose ~(start)~ and ~(stop)~ wich will start and stop the dev server manually.
+
+* Setting up Database data
+  I suggest rather than installing docker locally you should install docker and pull the postgres container.  
+** Setting up Docker Container
+   - Install Docker for your system using [[https://docs.docker.com/install/][Docker CE]].
+   - Pull postgres container using ~docker pull postgres~.
+   - create a folder that will contain the volume for docker ~mkdir -p $HOME/docker/volumes/postgres~.
+   - Run the docker container ~sudo docker run --rm  --name pg-docker -e POSTGRES_PASSWORD=<password> -d -p 5432:5432 -v $HOME/docker/volumes/postgres:/var/lib/postgresql/data postgres~.
+   - Note here the docker password can be whatever you like, and must match the one added to the following commands.
+
+** Running migrations
+   Migrations are run with the library [[https://github.com/yogthos/migratus][yogthos/migratus]].  To run the data migrations on your machine you can use the command ~DATABASE_PW=<docker> clj -A:migrations -m migrations~ or the simpler ~DATABASE_PW=<docker> make migrate~. To rollback, add ~rollback~ to either commands.
+

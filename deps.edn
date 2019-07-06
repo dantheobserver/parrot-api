@@ -1,10 +1,12 @@
 {:paths ["src/clj"]
- :deps {org.clojure/clojure {:mvn/version "RELEASE"}
+ :deps {org.clojure/clojure {:mvn/version "1.10.1"}
         com.rpl/specter {:mvn/version "1.1.2"}
         ring/ring-core {:mvn/version "1.7.1"}
         ring/ring-jetty-adapter {:mvn/version "1.7.1"}
         ring/ring-json {:mvn/version "0.4.0"}
-        org.clojure/spec.alpha {:mvn/version "0.2.176"}}
+        org.clojure/spec.alpha {:mvn/version "0.2.176"}
+        org.clojure/java.jdbc {:mvn/version "0.7.9"}
+        org.postgresql/postgresql {:mvn/version "42.2.6.jre7"}}
  :aliases
  {:test {:extra-paths ["test"]
          :extra-deps {org.clojure/test.check {:mvn/version "RELEASE"}}}
@@ -23,6 +25,6 @@
                      mvxcvi/puget {:mvn/version "1.1.2"}} 
         :extra-paths ["src/dev"]}
   :server {:main-opts ["-m" "dantheobserver.parrot-api.app"]}
-  :migrations {:extra-paths ["src/migrations" "migratus"]
+  :migrations {:extra-paths ["src/db" "resources"]
                :extra-deps {migratus {:mvn/version "1.2.3"}}}}}
 

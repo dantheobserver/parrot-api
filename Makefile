@@ -1,12 +1,15 @@
-dev: dev/user.clj
-	clojure -A:dev:nrepl
 .PHONY: dev
+dev:
+	clojure -A:dev:nrepl
 
+.PHONY: migrations
+migrate: 
+	clojure -A:migrations -m "migrations" $(cmd)
+
+.PHONY: image
 image:
 	docker build -t parrot-server .
-.PHONY: image
 
+.PHONY: server
 server:
 	sudo docker run -p 3030:3030 parrot-server clojure -A:server 0.0.0.0 3030
-.PHONY: server
-
