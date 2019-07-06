@@ -3,8 +3,8 @@ dev:
 	clojure -A:dev:nrepl
 
 .PHONY: migrations
-migrations: 
-	clojure -A:dev:migrations
+migrate: 
+	clojure -A:migrations -m "migrations" $(cmd)
 
 .PHONY: image
 image:
