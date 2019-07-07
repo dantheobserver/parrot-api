@@ -2,7 +2,11 @@
 dev:
 	clojure -A:dev:nrepl
 
-.PHONY: migrations
+.PHONY: test
+test:
+	clojure -A:test:runner
+
+.PHONY: migrate
 migrate: 
 	clojure -A:migrations -m "migrations" $(cmd)
 
