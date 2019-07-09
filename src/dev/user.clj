@@ -1,17 +1,20 @@
 (ns user
-  (:require [dantheobserver.parrot-api.app :refer [app]]
+  (:require [dantheobserver.parrot-api.config :refer [ig-config]]
             [ring.adapter.jetty :as jetty]
             [ring.middleware.reload :refer [wrap-reload]]
-            [puget.printer :refer [cprint]]))
+            [puget.printer :refer [cprint]]
+            [integrant.core :as ig]))
 
 (defn run-dev-server []
-  (println "---Starting dev server---")
-  (jetty/run-jetty (wrap-reload app) {:port 3030 :join? false}))
+  (let [dev-config (ig-config {:host "127.0.0.1"
+                               :wrapper wrap-reload})]
+    (println "---Starting dev server---")
+    (ig/init config)))
 
 (defonce server (run-dev-server))
 
-(defn stop [] (.stop server))
-(defn start [] (.start server))
+(defn stop [] (ig/halt! server))
+;; (defn start [] (.start server))
 
 (add-tap (bound-fn*
            (fn [x]
