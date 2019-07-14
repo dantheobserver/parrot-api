@@ -25,8 +25,8 @@ When the nrepl is started it will run the usr.clj in the dev directory and expos
    - Pull postgres container using ~docker pull postgres~.
    - create a folder that will contain the volume for docker ~mkdir -p $HOME/docker/volumes/postgres~.
    - Run the docker container ~sudo docker run --rm  --name pg-docker -e POSTGRES_PASSWORD=<password> -d -p 5432:5432 -v $HOME/docker/volumes/postgres:/var/lib/postgresql/data postgres~.
-   - Note here the docker password can be whatever you like, and must match the one added to the following commands.
-
+   - Create a file at your home folder called ~.parrot.config.edn~ with the following entry ~{:parrot {:database-pw "<database password>"}}~. This is what the application will use as the password for the database.
+   - If you would lik eto use a directory other than ~HOME~ for your config use run the dev/prod alias with the environment variable 
 ** Running migrations
-   Migrations are run with the library [[https://github.com/yogthos/migratus][yogthos/migratus]].  To run the data migrations on your machine you can use the command ~DATABASE_PW=<docker> clj -A:migrations -m migrations~ or the simpler ~DATABASE_PW=<docker> make migrate~. To rollback, add ~rollback~ to either commands.
+   Migrations are run with the library [[https://github.com/yogthos/migratus][yogthos/migratus]].  To run the data migrations on your machine you can use the command ~clj -A:migrations -m migrations~. To rollback, add ~rollback~ to either commands.
 

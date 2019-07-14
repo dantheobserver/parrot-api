@@ -1,14 +1,12 @@
 (ns dantheobserver.parrot-api.app
   (:require [dantheobserver.parrot-api.common :refer [fill]]
-            [dantheobserver.parrot-api.config :refer [ig-config]]
+            [dantheobserver.parrot-api.config :as config]
             [dantheobserver.parrot-api.response :as response]
             [integrant.core :as ig]
             [next.jdbc :as jdbc]
             [ring.adapter.jetty :as jetty]
             [ring.middleware.json :refer [wrap-json-response]]
             [ring.util.response :refer [response]]))
-
-;; (def config {:api1 "https://parrot-test.free.beeceptor.com"})
 
 ;; Seed data
 (defmethod ig/init-key :database.sql/datasource
@@ -38,7 +36,9 @@
   [_ service]
   (.stop service))
 
+(defn run-server [profile]
+  (let [config (config/ig-config profile)]
+    (config/init-config config)))
+
 (defn -main [& args]
-  (let [[host port] (fill ["127.0.0.1" 3030] args)]
-    (ig/init (ig-config {:host host
-                         :port port}))))
+  (run-server :prod))

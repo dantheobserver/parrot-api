@@ -1,0 +1,26 @@
+{:app-config #include #join [#or [#env HOME
+                                  #env CONFIG-DIR] "/.parrot.config.edn"]
+ :database.sql/datasource
+ {:dbtype "postgres"
+  :dbname "parrot"
+  :user "postgres"
+  :password #ref [:app-config :database-pw]} ;;switch to include secret edn file
+
+ :dantheobserver.parrot-api.store/data-store
+ {:datasource #ig/ref :database.sql/datasource
+  :query #parrot/sql ["select api_key.name, response.endpoint, response.query,"
+                      "response.response, response.match_query"
+                      "from response join api_key on api_key.id = response.api_id"]}
+
+ :dantheobserver.parrot-api.app/handler
+ {:data-store #ig/ref :dantheobserver.parrot-api.store/data-store}
+
+ :dantheobserver.parrot-api.app/service
+ {:handler #ig/ref :dantheobserver.parrot-api.app/handler
+  :host #profile {:prod "0.0.0.0" 
+                  :dev "127.0.0.1"}
+  :port #profile {:default 3030 
+                  :dev 3033}
+  :wrapper #profile {:default identity
+                     :dev 'ring.middleware.reload/wrap-reload}
+  }}
