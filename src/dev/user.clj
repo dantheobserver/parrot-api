@@ -6,10 +6,10 @@
             [ring.adapter.jetty :as jetty]
             [ring.middleware.reload :refer [wrap-reload]]))
 
+(println "\n\n\n\n\n******************DEV SERVER**********************\n\n\n\n")
 (defonce server (run-server :dev))
 
 (defn stop [] (ig/halt! server))
-(defn start [] (.start server))
 
 (add-tap (bound-fn*
            (fn [x]

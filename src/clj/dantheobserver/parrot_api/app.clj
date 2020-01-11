@@ -9,6 +9,9 @@
             [ring.util.response :refer [response]]))
 
 ;; Seed data
+(defmethod ig/init-key :dantheobserver.parrot-api.app
+  [_ _ ])
+
 (defmethod ig/init-key :database.sql/datasource
   [_ connection-data]
   (jdbc/get-datasource connection-data))
@@ -30,7 +33,9 @@
   (let [app (-> handler
                 wrap-json-response
                 wrapper)]
-    (jetty/run-jetty app {:host host :port port})))
+    (jetty/run-jetty app {:host host
+                          :port port
+                          :join? false})))
 
 (defmethod ig/halt-key! ::service
   [_ service]

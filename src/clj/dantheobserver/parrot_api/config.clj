@@ -10,7 +10,8 @@
 
 (defn ig-config [profile]
   (binding [*data-readers* {'ig/ref ig/ref}]
-    (aero/read-config (clojure.java.io/resource "config.edn")
-                      {:profile profile})))
+    (-> (clojure.java.io/resource "config.edn")
+        (aero/read-config {:profile profile}))))
 
-(defn init-config [config] (ig/init config))
+(defn init-config [config] (ig/init
+                             (dissoc config :app-config)))
