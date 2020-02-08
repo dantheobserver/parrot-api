@@ -1,0 +1,30 @@
+{"testapi/sample" {:id 0 
+                   :api_id 1
+                   :endpoint "testing"
+                   :query nil
+                   :response {"api" "api1" "hello" "world"}
+                   :match-query false}
+ "" {:id 1 
+     :api_id 1
+     :endpoint "testing/query"
+     :query {"query-value" true}
+     :response {"api" "api1" "hello" "world"}
+     :parrot/match-query true}
+ "" {:id 2 
+     :api_id 1
+     :endpoint "empty/response"
+     :query nil
+     :response nil 
+     :match-query false}
+ "" {:id 3
+     :api_id 2
+     :endpoint "testing1"
+     :query nil
+     :response {"api" "api2" "some" "data"} 
+     :match-query false}
+ "" {:id 4 
+     :api_id 2
+     :endpoint "testing1/nested"
+     :query nil
+     :response {"api" "api2" "data" {"nested" "data"}} 
+     :match-query false}}

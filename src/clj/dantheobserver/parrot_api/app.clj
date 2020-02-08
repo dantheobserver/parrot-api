@@ -1,7 +1,7 @@
 (ns dantheobserver.parrot-api.app
   (:require [dantheobserver.parrot-api.common :refer [fill]]
             [dantheobserver.parrot-api.config :as config]
-            [dantheobserver.parrot-api.response :as response]
+            [dantheobserver.parrot-api.response :as res]
             [integrant.core :as ig]
             [next.jdbc :as jdbc]
             [ring.adapter.jetty :as jetty]
@@ -22,7 +22,7 @@
     (fn [{:keys [uri] :as req}]
       (if (= "/favicon.ico" uri)
         {:status 404}
-        (let [res-data (-> (response/stored-data data-store req))]
+        (let [res-data (-> (res/stored-data data-store req))]
           ;; TODO: Check if res-data is present in cache
           ;; TODO: pull current endpoint from config and call with same req uri
           (response res-data))))))
